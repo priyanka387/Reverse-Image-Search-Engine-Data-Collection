@@ -1,4 +1,4 @@
-from src.utils.database_handler import MongodbClient
+from src.utils.database_handler import MongoDBClient
 from src.utils.s3_handler import S3Connection
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
@@ -7,7 +7,7 @@ import uvicorn
 
 
 app = FastAPI(title="DataCollection-Server")
-mongo = MongodbClient()
+mongo = MongoDBClient()
 s3 = S3Connection()
 
 choices = {}

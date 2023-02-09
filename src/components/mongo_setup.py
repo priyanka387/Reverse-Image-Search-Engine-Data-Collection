@@ -1,6 +1,6 @@
 import os
 import sys
-from src.utils.database_handler import MongodbClient
+from src.utils.database_handler import MongoDBClient
 from src.exception import CustomException
 
 
@@ -9,7 +9,7 @@ class MetaDataStore:
         self.root = os.path.join(os.getcwd(), "data")
         self.images = os.path.join(self.root, "caltech-101")
         self.labels = os.listdir(self.images)
-        self.mongo = MongodbClient()
+        self.mongo = MongoDBClient()
 
     def register_labels(self):
         try:

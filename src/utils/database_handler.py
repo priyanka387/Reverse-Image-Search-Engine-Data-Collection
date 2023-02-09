@@ -1,15 +1,25 @@
 import pymongo
+from src.constant.database import DATABASE_NAME
+
+import certifi
 import os
+ca = certifi.where()
 
-
-class MongodbClient:
+class MongoDBClient:
     client = None
+    def __init__(self, database_name=DATABASE_NAME) -> None:
+        try:
 
-    def __init__(self, database_name=os.environ["DATABASE_NAME"]) -> None:
-        if MongodbClient.client is None:
-            MongodbClient.client = pymongo.MongoClient(
-                f"mongodb+srv://{os.environ['ATLAS_CLUSTER_USERNAME']}:{os.environ['ATLAS_CLUSTER_PASSWORD']}@projects.ch4mixt.mongodb.net/?retryWrites=true&w=majority"
-            )
-        self.client = MongodbClient.client
-        self.database = self.client[database_name]
-        self.database_name = database_name
+            if MongoDBClient.client is None:
+                mongo_db_url = "mongodb+srv://priyanka:priya123@cluster0.wbh31ji.mongodb.net/?retryWrites=true&w=majority"
+                #mongo_db_url = os.getenv(MONGODB_URL_KEY)
+                print(mongo_db_url)
+                if "localhost" in mongo_db_url:
+                    MongoDBClient.client = pymongo.MongoClient(mongo_db_url) 
+                else:
+                    MongoDBClient.client = pymongo.MongoClient(mongo_db_url, tlsCAFile=ca)
+            self.client = MongoDBClient.client
+            self.database = self.client[database_name]
+            self.database_name = database_name
+        except Exception as e:
+            raise e
